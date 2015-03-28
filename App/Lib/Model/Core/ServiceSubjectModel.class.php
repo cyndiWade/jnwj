@@ -20,7 +20,16 @@ class ServiceSubjectModel extends AppBaseModel {
 
         return $subject_title_list;
     }
+    
+    
+    public function getSubjectResultBySubjectId ($subject_id) {
+        return D('Core/SubjectResult')->getSubjectResultBySubjectId($subject_id);
+    }
 
+    
+    public function getNewTenSubject() {
+        return D('Core/Subject')->getSubjectByNew(10);
+    }
 
 }
 
