@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link href="http://1251008728.cdn.myqcloud.com/1251008728/assets/images/wanhuir-icon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+      <title> title </title> 
+      <meta charset="utf-8">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <meta name="viewport" content="width=device-width,minimum-scale=0.5,maximum-scale=1,initial-scale=0.8" />
+    <!--<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">-->
+       <style type="text/css">
+        body{
+          background: #000;
+          background: url("{$global_tpl_view.Module_Resource_Path}imgs/bg.png") no-repeat;
+          background-size: cover;
+          margin: 0 auto;
+          padding: 20px 10px;
+          height: 100%;
+          min-height: 500px;
+      }
+
+      .title{
+          margin: 0 auto;
+          width: 80%;
+      }
+
+      .title h2{
+        background: #90ab8b;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        font-size: 20px;
+        font-weight: normal;
+          margin-bottom: 0;
+      }
+
+      .title-sub{
+          padding: 10px 20px;
+          color: #fff;
+          text-align: center;
+          /*border: 1px solid #b374b1;*/
+          border-top: 0;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          margin: 0 auto;
+          background: rgba(231, 231, 231, 0.2) none repeat scroll 0 0 !important;
+          background: #e7e7e7;
+          filter:Alpha(opacity=20);
+      }
+
+      .question{
+          width: 80%;
+          margin: 0 auto;
+          margin-top: 50px;
+          display: none;
+      }
+
+      .question-title{
+          text-align: center;
+          color: #fff;
+      }
+
+      .question:first-child, .question.current{
+          display: block;
+      }
+      .result{
+          display:none;
+      }
+
+      .options ul{
+          padding: 0;
+      }
+      .options li{
+          margin: 20px 0;
+          padding: 5px 15px;
+          list-style-type: none;
+      }
+
+      .options li div{
+          padding-left: 20px;
+      }
+      .options.button li{
+          border: 1px solid #8760a3;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          width: 100%;
+          color: white;
+          background:rgba(142, 99, 167, 0.6) none repeat scroll 0 0 !important;
+
+          background:#8e63a7;
+          filter:Alpha(opacity=60);
+      }
+
+      .options.button li{
+          padding: 5px 0;
+      }
+
+      .options li.selected{
+          background: #cf6271 !important;
+      }
+      .prev{
+          margin-top: 30px;
+          font-weight: 300;
+          font-size: 12px;
+          float: right;
+          padding-bottom: 50px;
+      }
+      .prev a:link{
+          color: #fff;
+      }
+
+      .tools-button{
+          padding: 10px 0;
+          color: #fff;
+          text-align: center;
+          margin: 0 auto;
+          width: 80%;
+          background:rgba(159, 66, 61, 0.3) none repeat scroll 0 0;
+          background: #9f423d;
+          filter:Alpha(opacity=30);
+
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+
+          margin-top: 30px;
+
+      }
+
+      .share{
+          background:rgba(49, 126, 172, 0.6) none repeat scroll 0 0;
+          background: #317eac;
+          filter:Alpha(opacity=60);
+      }
+            #tip {
+                display: none;
+                position: absolute;
+                margin: 0 auto;
+                top: 10px;
+                left: 10px;
+                
+            }
+            #mask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                background-color: #333;
+                filter: alpha(Opacity=90);
+                -moz-opacity: 0.9;
+                opacity: 0.9;
+            }
+      </style>
+    </head>
+    <body>
+
+
+
+<div class="title header-title">
+  <h2 id="subject_id" data-subject_id="{$view_data.subject_info.id}">
+    {$view_data.subject_info.title}
+  </h2>
+  <div class="title-sub">
+    {$view_data.subject_info.name}（{$view_data.subject_list_count}题）
+  </div>
+</div>
+
+    <volist name="view_data.subject_list" id="subject_vo" key="subject_i">
+    
+    <if condition="($subject_i eq 1)">
+        <assign name="current" value="current" />
+    <else />
+        <assign name="current" value="" />
+    </if>
+    
+    <div class="question {$current}">
+      <div class="question-title">
+          {$subject_i}、{$subject_vo.subject_title_name}
+      </div>
+      <div class="options button">
+        <ul class="subject_select_ul">
+             <volist name="subject_vo.subject_select_list" id="subject_select_vo" key="subject_select_i">
+              <li data-score="{$subject_select_i}" data-num="{$subject_select_vo.num}" data-subject_id="{$subject_select_vo.subject_id}"  data-subject_title_id="{$subject_select_vo.subject_title_id}">
+                  <div>
+                  {$subject_select_vo.subject_select_content}
+                  </div>
+               </li>
+             </volist>
+        </ul>
+      </div>
+
+      <div class="prev">
+        <a href="javascript:void(0)">返回上一题</a>
+      </div>
+    </div>
+    </volist>
+ 
+  
+    
+ 
+<!-- reslut -->
+<div class="result">
+    <div class="title">
+      <h2>
+        结果
+      </h2>
+      <div class="title-sub aside">
+
+      </div>
+    </div>
+
+    <div class="share tools-button" onclick="mask();">
+      分享
+    </div>
+
+    <div class="follow-us tools-button">
+      <a href="http://mp.weixin.qq.com/s?__biz=MzA4NjQxNjk4MQ==&mid=203817038&idx=1&sn=4b8fec860c338419069acbb163349795&key=b2574200810f04e8104773bb8d91139e52e7079afb6af8cf9af6835d543843137153e03dd0f70b2beaa2fe0c9bc61b57&ascene=0&uin=MTQyOTE3MDk4MA%3D%3D&devicetype=iMac+MacBookPro11%2C1+OSX+OSX+10.10.2+build(14C109)&version=11020012&pass_ticket=6DyU7f1GAh1d7q%2BIGLFu%2BdyC%2BPgkGGn5K2mV3AI%2BI6RzKvMYMOIx1ED%2BBRZEAws1">关注【见你未见】微信公众账号</a>
+    </div>
+</div>
+
+
+
+    <div id="mask" onclick="mask();"></div>
+   
+    <div id="tip"  onclick="mask();">
+            <img  style="width:320px;" src="{$global_tpl_view.Module_Resource_Path}imgs/guide.png"/>
+    </div>
+    
+
+<!-- js -->
+<script src="{$global_tpl_view.Global_Resource_Path}jquery/jquery-1.9.1.js"></script> 
+<script type="text/javascript">
+        $(document).ready(function(){
+          var result=0;
+          var result_message;
+          var a = 0;
+          var b = 0;
+          var c = 0;
+          var d = 0;
+          var res_arr = [];          
+
+          var subject_id = $('#subject_id').data('subject_id');//主题编号
+          
+          $(".options ul li").click(function(){
+              var  node = $(this).parent().parent().parent();
+              var next_node = $(node).next();
+
+              $(this).parent().find("li").removeClass("selected");
+              $(this).addClass("selected");
+
+              if(next_node.hasClass("question")){
+                  $(node).hide();
+                  $(next_node).show();
+              }else{
+            	  $(node).hide();
+            	  
+            	  var count_num = getSubjectSelectLiNum();
+            	  alert(count_num);
+            	  
+            	  var result_message = '关注【见你未见】公众号，查看答案。回复题目编号：'+subject_id+'。'+'你的得分为：'+count_num+'。';
+                  $(".aside").append(result_message);
+                  $(".header-title").hide();
+                  $(".result").show();
+                  
+            	  return false;
+            	  
+            	  /*
+            	  $(node).hide();
+                  $.each($("li.selected"), function(index, value){
+                      var score = parseInt($(value).attr("data-score"));
+                      switch(score){
+                          case 1:
+                              a = a + 1;
+                              break;
+                          case 2:
+                              b = b + 1;
+                              break;
+                          case 3:
+                              c = c + 1;
+                              break;
+                          case 4:
+                              d = d + 1;
+                              break;
+                      }
+                  });
+
+                res_arr = [a, b, c, d]; 
+                var i = Math.max.apply(null, res_arr);
+               
+                var color;
+                 if(i == res_arr[0]){
+                     color = "红色";
+                  }else if(i == res_arr[1]){
+                     color = "蓝色";
+                  }else if(i == res_arr[2]){
+                    color = "黄色";
+                  }else{
+                    color = "绿色";
+                  }
+
+
+                  result_message = "你的性格色彩为 "+color+". 想知道该色彩性格的特征，关注【懒人模板】公众号，查看答案。";
+                  $(".aside").append(result_message);
+                  $(".header-title").hide();
+                  $(".result").show();
+                  
+            	  */
+              }
+              
+          });
+
+          $(".prev a").click(function(){
+              var node = $(this).parent().parent();
+              var prev_node = $(node).prev();
+
+              if(prev_node.hasClass("question")){
+                  $(node).hide();
+                  $(prev_node).show();
+              }
+          });
+          
+          
+          var getSubjectSelectLiNum = function () {
+        	  var num = 0;
+        	  $('.subject_select_ul').each(function () {
+        		  var _this = $(this);
+        		  var _now_num = _this.find('.selected').data('num');
+        		  num += _now_num;
+        	  });
+        	  return num;
+          }
+      });
+      </script>
+      <script type="text/javascript">
+        
+        var is_weixin = function () {
+                var ua = navigator.userAgent.toLowerCase();
+                if(ua.match(/MicroMessenger/i) == "micromessenger") {
+                    if(ua.match(/iphone/i) == "iphone") {
+                        return 'ios';
+                    }
+                    return 'android';
+                }
+                return false;
+            }
+
+            var foo = function (o) {
+                if (o.value == o.defaultValue) {
+                    o.value = '';
+                    o.style.color = '#000';
+                }
+            }
+
+            var bar = function (o) {
+                if (o.value == '') {
+                    o.value = o.defaultValue;
+                    o.style.color = '#9a9a9a';
+                } else {
+                    o.style.color = '#000';
+                }
+            }
+
+            var mask = function () {
+                if (document.getElementById('mask').style.display == 'inline') {
+                    document.getElementById('mask').style.display = 'none';
+                    document.getElementById('tip').style.display = 'none';
+                } else {
+                    document.getElementById('mask').style.display = 'inline';
+                    document.getElementById('tip').style.display = 'inline';
+                }
+            }
+            
+            var subjectResult = function () {
+            	//options button
+            }
+
+            var share = function () {
+                mask();
+            }
+
+
+
+        var share_callback_hy = function () {
+            ajax = new XMLHttpRequest();
+            //ajax.open('GET', '/materials/wx_share?f=wx_hy&ref=' + window.location.href, true);
+            ajax.send(null);
+        }
+
+        var share_callback_pyq = function () {
+            ajax = new XMLHttpRequest();
+            //ajax.open('GET', '/materials/wx_share?f=wx_pyq&ref=' + window.location.href, true);
+            ajax.send(null);
+        }
+
+
+        var dataForWeixin = {
+              appId: "wx78f81724e6590b1d",
+              TLImg: "http://jnwj.techshow.club/lj1.jpg",
+              url: "http://www.lanrenmb.com/wcs/11",
+              title: "史上最准：乐嘉老师色彩性格测试",
+              desc: "性格也有色彩吗，乐嘉老师的回答是yes，快来探知！（10题）"
+        };
+
+
+
+        var onBridgeReady = function(){
+            WeixinJSBridge.on('menu:share:appmessage', function(argv){
+                WeixinJSBridge.invoke('sendAppMessage', {
+                    "appid": dataForWeixin.appId,
+                    "img_url": dataForWeixin.TLImg,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dataForWeixin.url + '?f=wx_hy_bb',
+                    "title":  dataForWeixin.title,
+                    "desc": dataForWeixin.desc 
+                });
+                share_callback_hy();
+               // setTimeout(function () {location.href = "http://mp.weixin.qq.com/s?__biz=MjM5NjA0MTI0OQ==&mid=200068987&idx=1&sn=1de5daeaae94c66a3c46a13e20e8011e#rd";}, 1500); 
+            });
+            WeixinJSBridge.on('menu:share:timeline', function(argv){              
+                WeixinJSBridge.invoke('shareTimeline', {
+                    "appid": dataForWeixin.appId,
+                    "img_url":dataForWeixin.TLImg,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dataForWeixin.url + '?f=wx_pyq_bb',
+                    "title": dataForWeixin.title,
+                    "desc": dataForWeixin.desc
+                });
+                share_callback_pyq();
+                //setTimeout(function () {location.href = "http://mp.weixin.qq.com/s?__biz=MjM5NjA0MTI0OQ==&mid=200068987&idx=1&sn=1de5daeaae94c66a3c46a13e20e8011e#rd";}, 1500);  
+            });
+        };
+        if(document.addEventListener){
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        }else if(document.attachEvent){
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }  
+      </script>
+
+</body>
+</html>
