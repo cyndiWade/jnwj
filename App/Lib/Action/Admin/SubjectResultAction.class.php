@@ -33,9 +33,12 @@ class SubjectResultAction extends AdminBaseAction {
 	
     public function index () {
         $result = array();
-      
+        $subject_id = $this->_get('subject_id');
+        
         $where = array();
+        $where['subject_id'] = $subject_id;
         $where['is_del'] = 0;
+       
         //分页
         $db_result = $this->service_subject->getSubjectResultListHtmlByWhere($where,'*',500,'id DESC');
         
@@ -49,6 +52,7 @@ class SubjectResultAction extends AdminBaseAction {
 	    ));
 	     
 	    parent::data_to_view($result);
+	    parent::data_to_view(array('subject_id'=>$subject_id));
 	    $this->display();
 	}
 	
@@ -59,10 +63,13 @@ class SubjectResultAction extends AdminBaseAction {
 	    $SubjectResult = D('Core/SubjectResult');
 	    $act = $this->_get('act');
 	    $id = $this->_get('id');
+	    $subject_id = $this->_get('subject_id');
 	    
 	    if ($act == 'add') {
 	        if ($this->isPost()) {
 	            $SubjectResult->create();
+	            $SubjectResult->subject_id = $subject_id;
+	            
 	            $SubjectResult->add() ? $this->success('添加成功') : $this->error('添加失败请稍后再试！');
 	            exit;
 	        }

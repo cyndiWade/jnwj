@@ -8,7 +8,7 @@ class SubjectModel extends AppBaseModel {
     }
 
     public function getSubjectByNew($limit) {
-        return $this->get_spe_data(array(),'*',0,$limit,'id DESC');
+        return $this->get_spe_data(array('is_del'=>0),'*',0,$limit,'id DESC');
     }
 }
 

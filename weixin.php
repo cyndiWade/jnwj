@@ -1,5 +1,9 @@
 <?php 
 header('Content-Type:application/json;charset=utf-8');
+
+/**
+ * 文档地址https://github.com/dodgepudding/wechat-php-sdk
+ */
 include "App/weixin-sdk/wechat-php-sdk-master/wechat.class.php";
 
 include "App/Common/common.php";
@@ -13,11 +17,18 @@ $api_data_url = "http://jnwj.techshow.club";
 
 
 
+// $options = array(
+//     'token'=>'jianniweijian7889', //填写你设定的key
+//     'appid'=>'wxf9f6944fb535cbb2', //填写高级调用功能的app id
+//     'appsecret'=>'4eaed2550d5c58add216469d3df0b6aa', //填写高级调用功能的密钥
+//     'encodingaeskey'=>'Swj8JGbBgErT4gP9vQzuVcPi2CvdE8qnLNAXgujvbcX', //填写加密用的EncodingAESKey
+// );
+
 $options = array(
     'token'=>'jianniweijian7889', //填写你设定的key
-    'appid'=>'wxf9f6944fb535cbb2', //填写高级调用功能的app id
-    'appsecret'=>'4eaed2550d5c58add216469d3df0b6aa', //填写高级调用功能的密钥
-    'encodingaeskey'=>'Swj8JGbBgErT4gP9vQzuVcPi2CvdE8qnLNAXgujvbcX', //填写加密用的EncodingAESKey
+    'appid'=>'wx301d13a26307b276', //填写高级调用功能的app id
+    'appsecret'=>'2495d54b68e8debe96315aa965108648', //填写高级调用功能的密钥
+    'encodingaeskey'=>'AVm1MFhnifWlgzGOw7kT5BwUOolqZHGtZkitvw5KBUS', //填写加密用的EncodingAESKey
 );
 
 $weObj = new Wechat($options);
@@ -69,14 +80,13 @@ switch($type) {
 //                     'Description'=>"请输入测试题目标号获取答案O(∩_∩)O",
 //                     'Url'=>$api_data_url.'/Home/Forecast/subject/subject_id/1'
 //                 );
+                $jljs_string = "教练技术测试题：\n\n";
                 foreach ($new_ten_subject_obj->data as $key=>$val) {
-                    $data[] = array(
-                    	'Title'=>$val->title,
-                        'Description'=>$val->name,
-                        'Url'=>$api_data_url.'/Home/Forecast/subject/subject_id/'.$val->id
-                    );
+                	$jljs_url = $api_data_url.'/Home/Forecast/subject/subject_id/'.$val->id;
+                	$jljs_string .= '<a href="'.$jljs_url.'" >'.$val->title.'</a>';
                 }
-                $weObj->news($data)->reply();
+                
+                $weObj->text($jljs_string)->reply();
             }
 //             $data = array(
 //                 0=>array(
