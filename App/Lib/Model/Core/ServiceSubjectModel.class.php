@@ -30,6 +30,24 @@ class ServiceSubjectModel extends AppBaseModel {
     public function getNewTenSubject() {
         return D('Core/Subject')->getSubjectByNew(10);
     }
+    
+    
+    public function getSubjectListHtmlByWhere  ($condition = array(),$fields = '*',$list_rows = 500,$order_by = '',$is_show_page_html =  true) {
+    	return D('Core/Subject')->get_spe_page_data($condition,$fields,$list_rows,$order_by,$is_show_page_html);
+    }
+    
+    
+    public function getSubjectTitleListHtmlByWhere ($condition = array(),$fields = '*',$list_rows = 500,$order_by = '',$is_show_page_html =  true) {
+    	return D('Core/SubjectTitle')->get_spe_page_data($condition,$fields,$list_rows,$order_by,$is_show_page_html);
+    }
+    
+    public function getSubjectSelectListHtmlByWhere ($condition = array(),$fields = '*',$list_rows = 500,$order_by = '',$is_show_page_html =  true) {
+    	return D('Core/SubjectSelect')->get_spe_page_data($condition,$fields,$list_rows,$order_by,$is_show_page_html);
+    }
+    
+    public function getSubjectResultListHtmlByWhere ($condition = array(),$fields = '*',$list_rows = 500,$order_by = '',$is_show_page_html =  true) {
+        return D('Core/SubjectResult')->get_spe_page_data($condition,$fields,$list_rows,$order_by,$is_show_page_html);
+    }
 
 }
 

@@ -16,12 +16,12 @@ class ForecastAction extends HomeBaseAction {
     
     public function subject () {
         $subject_id = $this->_get('subject_id');
-        $call_bak_url = '/xxx/XX';
+        $call_bak_url = '/Home/Forecast/subject/subject_id/2';
         
         $CoreSubject = D('Core/Subject');
         $subject_info = $CoreSubject->getSubjectById($subject_id);
         
-        if (empty($subject_info))  $this->redircet($call_bak_url);
+        if (empty($subject_info))  $this->redirect($call_bak_url);
         
         //$CoreSubjectTitle = D('Core/SubjectTitle');
         //$subject_title_list = $CoreSubjectTitle->getSubjectTitleBySubjectId($subject_id);
